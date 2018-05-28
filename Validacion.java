@@ -19,12 +19,30 @@ public class Validacion
 {
     public boolean soloLetras( String texto )
     {
+		Pattern patron = Pattern.compile("[^A-Za-zñÑáéíóúÁÉÍÓÚ ]");
+        Matcher encaja = patron.matcher(texto);
+        
+        if( !encaja.find() )
+        {
+            
+            return true;
+        }
+            
         return false;
     }
     
     public boolean soloNumeros( String texto )
     {
-        return false;
+        Pattern patron = Pattern.compile("[^0-9]");
+        Matcher encaja = patron.matcher(texto);
+        
+        if( !encaja.find() )
+        {
+            
+            return true;
+        }
+            
+		return false;
     }
     
     public boolean soloLetrasYnumeros( String texto )
