@@ -125,15 +125,73 @@ public class Validacion
     public boolean fechaCorrecta( String fecha )
     {
         boolean ret = false;
+        
+        try
+        {
+            int year = Integer.parseInt( fecha.split( Pattern.quote("-") )[0] );
+            int mes = Integer.parseInt( fecha.split( Pattern.quote("-") )[1] );
+            int dia = Integer.parseInt( fecha.split( Pattern.quote("-") )[2] );
+            
+            
+            if( ( year > Entorno.MIN_YEAR ) || ( year == Entorno.MIN_YEAR ) )
+            {
+                if(  year < Entorno.MAX_YEAR )
+                {
+                    ret = true;
+                }
+            }
+            
+        }
+        catch( Exception e )
+        {
+            ret = false;
+        }
+        
         return ret;
+    }
+    
+    public boolean esCorreo( String email )
+    {
+        
+        String regex = "^[\\w-]+(\\.[\\w-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(email);
+        
+        return matcher.matches();
     }
     
     public boolean existeEstado( int id )
     {
         boolean ret = false;
+        
+        try
+            {
+                Catalogos_Sistema cs = new Catalogos_Sistema();
+                ArrayList<Integer> listaEDOS = new ArrayList();
+                
+                for( Entidad e : cs.getEntidades() )
+                {
+                    int i = e.getId_Entidad();
+                    listaEDOS.add( i );
+                }
+                
+                for( Integer c : listaEDOS )
+                {
+                    if( c.intValue() == id )
+                    {
+                        ret = true;
+                    }
+                }
+                
+            }
+            catch( Exception e )
+            {
+                return false;
+            }
+        
         return ret;
     }
-    
+	
     public boolean entidadCorrecta( int idEdo, int idCiu )
     {
         boolean ret = false;
