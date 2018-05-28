@@ -76,11 +76,49 @@ public class Validacion
     public boolean esBoleta( int entrada )
     {
         boolean ret = false;
+        String sent = String.valueOf( entrada );
+        
+        try
+        {
+            int year = Integer.parseInt(sent.substring( 0, 4 ));
+            int escuela = Integer.parseInt( sent.substring( 4, 6 ) );
+            int pers = Integer.parseInt( sent.substring( 6 ) );
+
+            Calendar c = new GregorianCalendar();
+            
+            if( ( year <= c.get( Calendar.YEAR )  ) && ( year >= 1950 ) )
+            {
+                if( (escuela <= 18 ) && ( escuela != 0 ) )
+                {
+                    if( pers > 0 )
+                    {
+                        ret = true;
+                    }
+                }
+            }
+            
+        }
+        catch( Exception e )
+        {
+            ret = false;
+        }
         return ret;
     }
     
     public boolean esFecha( String fecha )
     {
+        try 
+        {
+            SimpleDateFormat formatoFecha = new SimpleDateFormat("yyy-MM-dd");
+            formatoFecha.setLenient(false);
+            formatoFecha.parse(fecha);
+        } 
+        catch ( Exception e )  
+        {
+            System.out.println("No es fecha: " + e.getMessage());
+            return false;
+        }
+        
         return true;
     }
     
