@@ -47,11 +47,29 @@ public class Validacion
     
     public boolean soloLetrasYnumeros( String texto )
     {
+        Pattern patron = Pattern.compile("[^0-9A-Za-zñÑáéíóúÁÉÍÓÚ ]");
+        Matcher encaja = patron.matcher(texto);
+        
+        if( !encaja.find() )
+        {
+            
+            return true;
+        }
+            
         return false;
     }
     
     public boolean esPassword( String texto )
     {
+        Pattern patron = Pattern.compile("[^0-9A-Za-zñÑáéíóúÁÉÍÓÚ]");
+        Matcher encaja = patron.matcher(texto);
+        
+        if( !encaja.find() )
+        {
+            
+            return true;
+        }
+            
         return false;
     }
     
